@@ -1,40 +1,51 @@
-const express = require("express");
-const SpotifyWebApi = require("spotify-web-api-node");
-const cors = require("cors");
-const PORT = 5000;
+require("dotenv").config()
+const express = require("express")
+const SpotifyWebApi = require("spotify-web-api-node")
+const cors = require("cors")
+const PORT = 5000
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+const clientID = process.env.CLIENT_ID
+const clientSecret = process.env.CLIENT_SECRET
+
+console.log("🚨🛸", process.env.CLIENT_ID)
 
 app.post("/refresh", (req, res) => {
-  const refreshToken = req.body.refreshToken;
+  const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
-    clientId: "c9055834a0f14cf4bd5c211ab9c39b83",
+    clientId: clientID,
     redirectUri: "http://localhost:3000",
-    clientSecret: "86caa18527244f03bdf13b1fc4e63227",
+    clientSecret: clientSecret,
     refreshToken,
-  });
+  })
 
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
-      console.log(data.body);
+      res.json({
+        accessToken: data.body.access_token,
+        expiresIn: data.body.expires_in,
+      })
     })
-    .catch(() => {
-      res.sendStatus(400);
-    });
-});
+    .catch((err) => {
+      res.sendStatus(400)
+      console.log("⚠️ refresh token alert ⚠️")
+      console.log(err)
+    })
+})
 
 app.post("/login", (req, res) => {
-  const code = req.body.code;
-  console.log("this is the code 👇");
-  console.log(code);
+  const code = req.body.code
+  console.log("this is the code 👇")
+  console.log(code)
   const spotifyApi = new SpotifyWebApi({
-    clientId: "c9055834a0f14cf4bd5c211ab9c39b83",
+    clientId: clientID,
     redirectUri: "http://localhost:3000",
-    clientSecret: "86caa18527244f03bdf13b1fc4e63227",
-  });
+    clientSecret: clientSecret,
+  })
 
   spotifyApi
     .authorizationCodeGrant(code)
@@ -43,12 +54,14 @@ app.post("/login", (req, res) => {
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
         expiresIn: data.body.expires_in,
-      });
+      })
     })
     .catch((err) => {
-      console.log(err);
-      res.sendStatus(400);
-    });
-});
+      console.log("⚠️ authorization error")
+      console.log(err)
 
-app.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`));
+      res.sendStatus(400)
+    })
+})
+
+app.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`))
