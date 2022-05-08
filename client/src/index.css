@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Metropolis Black";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-Black.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Metropolis Extra Bold";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-ExtraBold.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Metropolis Regular";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-Regular.otf") format("opentype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Metropolis Bold";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Metropolis Light";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-Light.otf") format("opentype");
+  font-weight: lighter;
+}
+@font-face {
+  font-family: "Metropolis Extra Light";
+  src: local("Metropolis"),
+    url("./fonts/Metropolis/Metropolis-ExtraLight.otf") format("opentype");
+  font-weight: lighter;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
