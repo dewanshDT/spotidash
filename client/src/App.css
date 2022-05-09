@@ -1,6 +1,7 @@
 :root {
   --color-primary-400: #1db954;
   --color-neutral-100: #ffffff;
+  --color-neutral-200: #ffffffbb;
   --color-neutral-300: #ffffff7b;
   --color-neutral-500: #ffffff27;
   --color-neutral-600: #181818;
@@ -8,6 +9,7 @@
   --color-neutral-800: #121212;
   --color-neutral-900: #000000;
 
+  --font-size-200: 0.75rem;
   --font-size-300: 0.975rem;
   --font-size-400: 1.125rem;
   --font-size-500: 1.25rem;
@@ -24,7 +26,7 @@
 
 .App {
   min-height: 100vh;
-  min-width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   /* justify-content: center;
@@ -65,7 +67,7 @@
 }
 
 .dashboard {
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -75,17 +77,17 @@
 }
 
 .dashboard section.right {
-  width: 100%;
   background-color: var(--color-neutral-600);
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: 0 2rem;
+  overflow-y: scroll;
 }
 
 .dashboard section.left {
-  /* min-width: 20%; */
+  min-width: 20%;
   padding: var(--space-300);
-  max-width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,4 +149,79 @@
 .active,
 .active:hover {
   background-color: var(--color-primary-400);
+}
+
+.track-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-400);
+}
+
+.track > * {
+  z-index: 3;
+}
+
+.track > .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  filter: blur(10px) brightness(0.5);
+  transition: opacity 300ms ease;
+}
+
+.track {
+  margin: var(--space-200) 0;
+  padding: var(--space-100) var(--space-300);
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: filter 200ms ease;
+}
+
+.track > .index {
+  margin-right: 1em;
+  width: 1em;
+}
+
+.track > .album-art {
+  margin-right: 1rem;
+  height: 3rem;
+}
+
+.track .title {
+  font-size: var(--font-size-300);
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  white-space: unset;
+  width: 100%;
+  word-break: break-all;
+}
+
+.track .artists {
+  font-family: "Metropolis Extra Light";
+  color: var(--color-neutral-300);
+  margin-top: 0.5em;
+}
+
+.track > .album-name {
+  margin-left: auto;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+  word-break: break-all;
+  white-space: unset;
+  color: var(--color-neutral-200);
+  font-size: var(--font-size-200);
+  max-width: 30%;
 }

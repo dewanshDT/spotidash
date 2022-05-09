@@ -15,6 +15,7 @@ const Dashboard = ({ code }) => {
   const accessToken = useAuth({ code })
   const [user, setUser] = useState()
   const [navValue, setNavValue] = useState("tracks")
+  const [tracks, setTracks] = useState([])
 
   useEffect(() => {
     if (!accessToken) return
@@ -26,14 +27,18 @@ const Dashboard = ({ code }) => {
     spotifyApi
       .getMe()
       .then((res) => {
-        console.log(res.body)
         setUser(res?.body)
       })
       .catch((error) => console.log(error))
+
+    spotifyApi.getMyTopTracks().then((res) => {
+      console.log(res.body.items)
+      setTracks(res.body.items)
+    })
   }, [accessToken])
 
   const Tabs = ({ option }) => {
-    if (option === "tracks") return <TrackList spotifyApi={spotifyApi} />
+    if (option === "tracks") return <TrackList tracks={tracks} />
     return ""
   }
 
