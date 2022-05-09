@@ -15,12 +15,12 @@ const Nav = ({ navValue, setNavValue }) => {
       >
         top artists
       </div>
-      <div
+      {/* <div
         className={`menue-item ${navValue === "genres" ? "active" : ""}`}
         onClick={() => setNavValue("genres")}
       >
         top genres
-      </div>
+      </div> */}
     </div>
   )
 }

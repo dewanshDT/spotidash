@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import SpotifyWebApi from "spotify-web-api-node"
 import useAuth from "../hooks/useAuth"
+import ArtistList from "./ArtistList"
 import Nav from "./Nav"
 import TrackList from "./TrackList"
 import User from "./User"
@@ -16,6 +17,7 @@ const Dashboard = ({ code }) => {
   const [user, setUser] = useState()
   const [navValue, setNavValue] = useState("tracks")
   const [tracks, setTracks] = useState([])
+  const [artists, setArtists] = useState([])
 
   useEffect(() => {
     if (!accessToken) return
@@ -31,14 +33,25 @@ const Dashboard = ({ code }) => {
       })
       .catch((error) => console.log(error))
 
-    spotifyApi.getMyTopTracks().then((res) => {
-      console.log(res.body.items)
-      setTracks(res.body.items)
-    })
+    spotifyApi
+      .getMyTopTracks()
+      .then((res) => {
+        setTracks(res.body.items)
+      })
+      .catch((err) => console.log(err))
+
+    spotifyApi
+      .getMyTopArtists()
+      .then((res) => {
+        console.log(res.body.items)
+        setArtists(res.body.items)
+      })
+      .catch((err) => console.log(err))
   }, [accessToken])
 
   const Tabs = ({ option }) => {
     if (option === "tracks") return <TrackList tracks={tracks} />
+    if (option === "artists") return <ArtistList artists={artists} />
     return ""
   }
 

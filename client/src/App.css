@@ -225,3 +225,39 @@
   font-size: var(--font-size-200);
   max-width: 30%;
 }
+
+.artist-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+.artist-list > .artist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.artist > .image {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.artist > .image > img {
+  width: 10rem;
+}
+
+.artist > .name {
+  margin: 1em 0 0.3em 0;
+}
+
+.artist > .followers {
+  color: var(--color-neutral-300);
+  font-family: "Metropolis Extra Light";
+}
