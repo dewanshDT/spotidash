@@ -138,7 +138,8 @@
   border-radius: 1000px;
   cursor: pointer;
   text-transform: uppercase;
-  font-family: "Metropolis Extra Bold";
+  font-family: "Metropolis Regular";
+  font-weight: bold;
   transition: background-color 200ms ease;
 }
 
@@ -260,4 +261,8 @@
 .artist > .followers {
   color: var(--color-neutral-300);
   font-family: "Metropolis Extra Light";
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
