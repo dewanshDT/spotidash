@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+const url =
+  process.env.NODE_ENV === "production"
+    ? "https://dewansh-spotidash.herokuapp.com"
+    : "http://localhost:5000"
 
 const useAuth = ({ code }) => {
   const [accessToken, setAccessToken] = useState()
@@ -8,7 +12,7 @@ const useAuth = ({ code }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/login", {
+      .post(`${url}/login`, {
         code,
       })
       .then((res) => {
@@ -27,7 +31,7 @@ const useAuth = ({ code }) => {
     if (!refreshToken || !expiresIn) return
     const interval = setInterval(() => {
       axios
-        .post("http://localhost:5000/refresh", {
+        .post(`${url}/refresh`, {
           refreshToken,
         })
         .then((res) => {
